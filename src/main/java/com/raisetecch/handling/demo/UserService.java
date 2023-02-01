@@ -1,6 +1,5 @@
 package com.raisetecch.handling.demo;
 
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
