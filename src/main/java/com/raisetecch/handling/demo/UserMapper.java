@@ -1,6 +1,5 @@
 package com.raisetecch.handling.demo;
 
-import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
