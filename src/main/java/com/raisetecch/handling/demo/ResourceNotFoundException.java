@@ -2,7 +2,7 @@ package com.raisetecch.handling.demo;
 
 public class ResourceNotFoundException extends  RuntimeException {
 
-    public  ResourceNotFoundException() {
+    public ResourceNotFoundException() {
         super();
     }
 
