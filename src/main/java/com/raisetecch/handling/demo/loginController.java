@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Optional;
 
 @Controller
-public class HomeController {
+public class loginController {
 
     private final UserService userService;
 
     @Autowired
-    public HomeController(UserService userService) {
+    public loginController(UserService userService) {
         this.userService = userService;
     }
 
