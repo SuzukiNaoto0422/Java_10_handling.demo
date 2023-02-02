@@ -25,7 +25,16 @@ public class UserService {
             }
         }
 
-        public Optional<User> userLogin(int id, String name) {
-            return userMapper.findByIdAndName(id, name);
+        public User userLogin(Integer id, String name) {
+            if (id == null || name == null || name.isEmpty()) {
+                throw new ResourceNotFoundException("User not found");
+            }
+            Optional<User> user = this.userMapper.findByIdAndName(id, name);
+            if (user.isPresent()) {
+                return user.get();
+            } else {
+                throw new ResourceNotFoundException("User not found");
+            }
         }
+
 }
