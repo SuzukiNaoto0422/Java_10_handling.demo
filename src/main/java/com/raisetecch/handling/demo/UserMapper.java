@@ -11,4 +11,6 @@ public interface UserMapper {
     @Select("SELECT * FROM users WHERE id = #{id}")
     Optional<User> findById(int id);
 
+    @Select("SELECT * FROM users WHERE id = #{id} AND name = #{name}")
+    Optional<User> findByIdAndName(int id, String name);
 }
