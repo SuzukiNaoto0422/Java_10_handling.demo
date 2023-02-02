@@ -24,17 +24,17 @@ public class HomeController {
     }
 
     @GetMapping("/login/{id}/{name}")
-    public String loginResult(@RequestParam(name = "id", required = false)Integer id,
-                              @RequestParam(name = "name", required = false)String name, Model model) {
+    public String loginResult(@RequestParam(name = "id", required = false) Integer id,
+                              @RequestParam(name = "name", required = false) String name, Model model) {
         if (id == null || name == null) {
-            model.addAttribute("message","ログインに失敗しました");
+            model.addAttribute("message", "ログインに失敗しました");
             return "loginResult";
         }
         Optional<User> user = userService.userLogin(id, name);
         if (user.isPresent()) {
             model.addAttribute("message", "ログインに成功しました");
         } else {
-            model.addAttribute("message","ログインに失敗しました");
+            model.addAttribute("message", "ログインに失敗しました");
         }
         return "loginResult";
     }
