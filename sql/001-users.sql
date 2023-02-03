@@ -9,3 +9,10 @@ INSERT INTO `users` (`id`, `name`) VALUES
 (1, '鈴木'),
 (2, '斎藤'),
 (3, '古閑');
+
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `users`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+COMMIT;
