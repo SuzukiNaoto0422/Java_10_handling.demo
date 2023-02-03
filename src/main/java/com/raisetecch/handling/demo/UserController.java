@@ -3,12 +3,17 @@ package com.raisetecch.handling.demo;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 
@@ -26,10 +31,12 @@ public class UserController {
         return userService.findUser(id);
     }
 
-    @PostMapping("/entry/{id}/{name}")//dbにユーザーの登録
-    public User postUser(@PathVariable("id") int id,
-                         @PathVariable("name") String name) {
-        return userService.entryUser(id,name);
+    @PostMapping("/entry")//dbにユーザーの登録
+    public User postUser(@RequestBody User user) {
+        if (user.getName() == null || user.getName().isEmpty()) {
+            throw new ResourceNotFoundException("Name must not be empty or null.");
+        }
+        return userService.entryUser(user.getId(), user.getName());
     }
 
     @ExceptionHandler(value = ResourceNotFoundException.class)

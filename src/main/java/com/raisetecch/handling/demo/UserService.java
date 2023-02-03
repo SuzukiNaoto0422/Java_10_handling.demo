@@ -24,27 +24,15 @@ public class UserService {
             }
         }
 
-        public User entryUser(Integer id, String name) {
-            if (id == null || id <= 0) {//idがnull or 0以下の時
-                throw new ResourceNotFoundException("Invalid ID: " + id);
+        public User entryUser(int id, String name) {
+            if (name == null || name.isEmpty()) {
+                throw new ResourceNotFoundException("Name must not be empty or null.");
             }
-
-            if (name == null || name.trim().isEmpty()) {//名前が未入力の場合
-                throw new ResourceNotFoundException("Invalid name: " + name);
-            }
-
-            User existingUser = userMapper.findUserByID(id);
-            if (existingUser != null) {//既存のidと入力が重複した場合
-                throw new ResourceNotFoundException("ID already exists: " + id);
-            }
-
-            int result = userMapper.insertUser(id, name);
-            if (result == 1) {//挿入されるレコードが１つかどうか
-                System.out.println("registration completed");
-                return new User(id, name);
-            } else {
-                throw new ResourceNotFoundException("could not register");
-            }
+            User user = new User(id, name);
+            user.setId(id);
+            user.setName(name);
+            userMapper.registrationUserByName(name);
+            return user;
         }
 
         public User userLogin(Integer id, String name) {
