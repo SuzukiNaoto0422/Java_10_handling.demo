@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.ZonedDateTime;
@@ -20,9 +21,15 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/users/{id}")//dbの中のユーザーの検索
     public User getUser(@PathVariable("id") int id) {
         return userService.findUser(id);
+    }
+
+    @PostMapping("/entry/{id}/{name}")//dbにユーザーの登録
+    public User postUser(@PathVariable("id") int id,
+                         @PathVariable("name") String name) {
+        return userService.entryUser(id,name);
     }
 
     @ExceptionHandler(value = ResourceNotFoundException.class)
@@ -38,4 +45,5 @@ public class UserController {
 
         return new ResponseEntity<>(body,HttpStatus.NOT_FOUND);
     }
+
 }
