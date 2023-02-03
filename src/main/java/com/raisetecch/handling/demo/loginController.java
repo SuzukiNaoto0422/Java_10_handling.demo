@@ -1,12 +1,17 @@
 package com.raisetecch.handling.demo;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Optional;
+import java.time.ZonedDateTime;
+import java.util.Map;
 
 @Controller
 public class loginController {
@@ -18,7 +23,7 @@ public class loginController {
         this.userService = userService;
     }
 
-    @GetMapping("/login")
+    @GetMapping("/login") //http://localhost:8080/login
     public String login() {
         return "login";
     }
@@ -26,17 +31,23 @@ public class loginController {
     @GetMapping("/login/{id}/{name}")
     public String loginResult(@RequestParam(name = "id", required = false) Integer id,
                               @RequestParam(name = "name", required = false) String name, Model model) {
-        if (id == null || name == null) {
-            model.addAttribute("message", "ログインに失敗しました");
-            return "loginResult";
-        }
-        Optional<User> user = userService.userLogin(id, name);
-        if (user.isPresent()) {
-            model.addAttribute("message", "ログインに成功しました");
-        } else {
-            model.addAttribute("message", "ログインに失敗しました");
-        }
+        User user = userService.userLogin(id, name);
+        model.addAttribute("message", "ログインに成功しました");
         return "loginResult";
+    }
+
+    @ExceptionHandler(value = ResourceNotFoundException.class)
+    public ResponseEntity<Map<String,String>> handleNoResourceFound(
+            ResourceNotFoundException e, HttpServletRequest request) {
+
+        Map<String, String> body = Map.of(
+                "timestamp", ZonedDateTime.now().toString(),
+                "status", String.valueOf(HttpStatus.NOT_FOUND.value()),
+                "error",HttpStatus.NOT_FOUND.getReasonPhrase(),
+                "message", e.getMessage(),
+                "path", request.getRequestURI());
+
+        return new ResponseEntity<>(body,HttpStatus.NOT_FOUND);
     }
 
 }
