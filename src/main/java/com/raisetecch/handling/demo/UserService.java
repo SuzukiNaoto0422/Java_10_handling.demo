@@ -25,7 +25,7 @@ public class UserService {
         }
 
         public User entryUser(String name) {
-            if (name == null || name.isEmpty()) {
+            if (name.matches("^[^A-Za-z].*")) {
                 throw new ResourceNotFoundException("Name must not be empty or null.");
             }
             User user = new User(name);
@@ -44,5 +44,4 @@ public class UserService {
                 throw new ResourceNotFoundException("user not found");
             }
         }
-
 }
