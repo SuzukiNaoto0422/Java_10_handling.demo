@@ -24,12 +24,11 @@ public class UserService {
             }
         }
 
-        public User entryUser(int id, String name) {
+        public User entryUser(String name) {
             if (name == null || name.isEmpty()) {
                 throw new ResourceNotFoundException("Name must not be empty or null.");
             }
-            User user = new User(id, name);
-            user.setId(id);
+            User user = new User(name);
             user.setName(name);
             userMapper.registrationUserByName(name);
             return user;
