@@ -1,19 +1,15 @@
 package com.raisetecch.handling.demo;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
-
+import jakarta.validation.constraints.NotEmpty;
 
 public class User {
 
-        @Null
         private int id;
 
-        @NotNull
+        @NotEmpty
         private String name;
 
         public User(String name) {
-            this.id = id;
             this.name = name;
         }
 

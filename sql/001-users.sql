@@ -5,14 +5,9 @@ CREATE TABLE `users` (
   `name` varchar(20) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `users` (`id`, `name`) VALUES
-(1, '鈴木'),
-(2, '斎藤'),
-(3, '古閑');
-
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `users`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
