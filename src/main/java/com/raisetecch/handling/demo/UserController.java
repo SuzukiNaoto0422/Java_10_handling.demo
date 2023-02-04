@@ -28,8 +28,8 @@ public class UserController {
     }
 
     @PostMapping("/users")//dbにユーザーの登録
-    public User postUser(@RequestBody User user) {
-        return userService.entryUser(user.getName());
+    public User postUser(@RequestBody UserForm form) {
+        return userService.entryUser(form.getName());
     }
 
     @ExceptionHandler(value = ResourceNotFoundException.class)

@@ -13,7 +13,7 @@ public interface UserMapper {
     Optional<User> findById(int id);
 
     @Insert("INSERT INTO users (name) VALUES (#{name})")
-    User registrationUserByName(String name);
+    UserForm registrationUserByName(String name);
 
     @Select("SELECT * FROM users WHERE id = #{id} AND name = #{name}")
     Optional<User> findByIdAndName(int id, String name);
