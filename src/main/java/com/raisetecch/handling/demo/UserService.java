@@ -25,7 +25,7 @@ public class UserService {
         }
 
         public User entryUser(String name) {
-            if (name.matches("^[^A-Za-z].*")) {
+            if (name.matches("^[^A-Za-z].*")) {//アルファベットで始まる場合エラーを返す
                 throw new ResourceNotFoundException("Name must not be empty or null.");
             }
             User user = new User(name);
