@@ -7,10 +7,13 @@ public class UserForm {
     @NotEmpty
     private String name;
 
+    public UserForm() {
+    }
+
     public UserForm(String name) {
         this.name = name;
     }
-
+    
     public String getName() {
         return name;
     }

@@ -6,8 +6,9 @@ public class User {
 
         private int id;
 
-        @NotEmpty
         private String name;
+
+        public User() {}
 
         public User(String name) {
             this.name = name;

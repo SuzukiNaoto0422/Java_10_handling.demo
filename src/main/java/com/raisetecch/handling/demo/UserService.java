@@ -24,13 +24,13 @@ public class UserService {
             }
         }
 
-        public User entryUser(String name) {
+        public UserForm entryUser(String name) {
             if (name.matches("^[^A-Za-z].*")) {//アルファベットで始まる場合エラーを返す
                 throw new ResourceNotFoundException("Name must not be empty or null or alphabet.");
             }
-            User user = new User(name);
+            UserForm form = new UserForm(name);
             userMapper.registrationUserByName(name);
-            return user;
+            return form;
         }
 
         public User userLogin(Integer id, String name) {
