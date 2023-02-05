@@ -3,6 +3,7 @@ package com.raisetecch.handling.demo;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,13 @@ public class UserController {
     public ResponseEntity<String> postUser(@RequestBody UserForm form) {
         userService.entryUser(form.getName());
         return ResponseEntity.ok().body("name successfully created");
+    }
+
+    @DeleteMapping("/users/{id}/{name}")//idとname対応する名前の削除
+    public ResponseEntity<Map<String,String>> delete(@PathVariable("id") Integer id,
+                                                     @PathVariable("name") String name) {
+        User user = userService.deleteUser(id, name);
+        return ResponseEntity.ok(Map.of("message", "name successfully deleted"));
     }
 
     @ExceptionHandler(value = ResourceNotFoundException.class)

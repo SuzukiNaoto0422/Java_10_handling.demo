@@ -4,8 +4,10 @@ import jakarta.validation.constraints.NotEmpty;
 
 public class User {
 
+        @NotEmpty
         private int id;
 
+        @NotEmpty
         private String name;
 
         public User() {}
