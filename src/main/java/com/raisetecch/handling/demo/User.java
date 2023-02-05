@@ -1,11 +1,16 @@
 package com.raisetecch.handling.demo;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class User {
+
         private int id;
+
         private String name;
 
-        public User(int id, String name) {
-            this.id = id;
+        public User() {}
+
+        public User(String name) {
             this.name = name;
         }
 
