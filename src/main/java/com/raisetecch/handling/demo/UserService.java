@@ -35,7 +35,7 @@ public class UserService {
 
         public Optional<User> deleteUser(int id) {
             Optional<User> userDeleted = userMapper.findById(id);
-            if (userDeleted == null) {
+            if (!userDeleted.isPresent()) {
                 throw new ResourceNotFoundException("user not found");
             }
             userMapper.deleteById(id);
