@@ -33,12 +33,12 @@ public class UserService {
             return form;
         }
 
-        public User deleteUser(int id, String name) {
-            User userDeleted = userMapper.checkByIdAndName(id, name);
+        public Optional<User> deleteUser(int id) {
+            Optional<User> userDeleted = userMapper.findById(id);
             if (userDeleted == null) {
                 throw new ResourceNotFoundException("user not found");
             }
-            userMapper.deleteByIdAngName(id, name);
+            userMapper.deleteById(id);
             return userDeleted;
         }
 

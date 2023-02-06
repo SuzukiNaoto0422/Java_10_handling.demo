@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.ZonedDateTime;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -34,10 +35,9 @@ public class UserController {
         return ResponseEntity.ok().body("name successfully created");
     }
 
-    @DeleteMapping("/users/{id}/{name}")//idの一致するユーザーの削除
-    public ResponseEntity<Map<String,String>> delete(@PathVariable("id") Integer id,
-                                                     @PathVariable("name") String name) {
-        User user = userService.deleteUser(id, name);
+    @DeleteMapping("/users/{id}")//idの一致するユーザーの削除
+    public ResponseEntity<Map<String,String>> delete(@PathVariable("id") Integer id) {
+        Optional<User> user = userService.deleteUser(id);
         return ResponseEntity.ok(Map.of("message", "name successfully deleted"));
     }
 
