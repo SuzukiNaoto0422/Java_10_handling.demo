@@ -34,7 +34,7 @@ public class UserController {
         return ResponseEntity.ok().body("name successfully created");
     }
 
-    @DeleteMapping("/users/{id}/{name}")//idとname対応する名前の削除
+    @DeleteMapping("/users/{id}/{name}")//idの一致するユーザーの削除
     public ResponseEntity<Map<String,String>> delete(@PathVariable("id") Integer id,
                                                      @PathVariable("name") String name) {
         User user = userService.deleteUser(id, name);
