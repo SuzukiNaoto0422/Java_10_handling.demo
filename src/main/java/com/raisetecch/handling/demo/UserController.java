@@ -39,7 +39,7 @@ public class UserController {
     @PatchMapping("/users/{id}")//idに対応するユーザーデータの更新
     public ResponseEntity<Map<String, String>> updateUser(@PathVariable("id") int id,
                                                           @RequestBody UserForm updateForm) {
-        Optional<User> user = userService.updateUser(id, updateForm.getName());
+        User user = userService.updateUser(id, updateForm.getName());
         return ResponseEntity.ok(Map.of("message", "name successfully updated"));
     }
 
