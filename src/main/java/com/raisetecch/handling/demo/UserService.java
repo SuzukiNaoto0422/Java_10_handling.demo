@@ -44,7 +44,7 @@ public class UserService {
 
         public User updateUser(int id, String name) {
             User userUpdate = userMapper.findById(id).orElseThrow(() -> new ResourceNotFoundException("user not found"));
-            userMapper.updateByIdAndName(id, name);
+            userMapper.updateNameById(id, name);
             return userUpdate;
         }
 

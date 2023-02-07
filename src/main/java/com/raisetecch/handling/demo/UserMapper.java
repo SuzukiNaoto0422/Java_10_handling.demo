@@ -21,7 +21,7 @@ public interface UserMapper {
     boolean deleteById(int id);
 
     @Update("UPDATE users SET name = #{name} WHERE id = #{id}")
-    void updateByIdAndName(int id, String name);
+    void updateNameById(int id, String name);
 
     @Select("SELECT * FROM users WHERE id = #{id} AND name = #{name}")
     Optional<User> findByIdAndName(int id, String name);
