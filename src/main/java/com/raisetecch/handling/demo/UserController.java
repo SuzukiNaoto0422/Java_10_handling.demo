@@ -3,6 +3,7 @@ package com.raisetecch.handling.demo;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.ZonedDateTime;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -31,6 +33,12 @@ public class UserController {
     public ResponseEntity<String> postUser(@RequestBody UserForm form) {
         userService.entryUser(form.getName());
         return ResponseEntity.ok().body("name successfully created");
+    }
+
+    @DeleteMapping("/users/{id}")//idの一致するユーザーの削除
+    public ResponseEntity<Map<String,String>> delete(@PathVariable("id") Integer id) {
+        User user = userService.deleteUser(id);
+        return ResponseEntity.ok(Map.of("message", "name successfully deleted"));
     }
 
     @ExceptionHandler(value = ResourceNotFoundException.class)
