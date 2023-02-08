@@ -39,6 +39,11 @@ public class UserService {
             return userDelete;
         }
 
+        public User updateUser(int id, String name) {
+            User userUpdate = userMapper.findById(id).orElseThrow(() -> new ResourceNotFoundException("user not found"));
+            userMapper.updateNameById(id, name);
+            return userUpdate;
+        }
 
         public User userLogin(Integer id, String name) {
             if (id == null || name == null || name.isEmpty()) {

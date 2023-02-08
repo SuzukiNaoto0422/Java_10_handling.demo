@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,9 +31,16 @@ public class UserController {
     }
 
     @PostMapping("/users")//dbにユーザーの登録
-    public ResponseEntity<String> postUser(@RequestBody UserForm form) {
+    public ResponseEntity<String> post(@RequestBody UserForm form) {
         userService.entryUser(form.getName());
         return ResponseEntity.ok().body("name successfully created");
+    }
+
+    @PatchMapping("/users/{id}")//idに対応するユーザーデータの更新
+    public ResponseEntity<Map<String, String>> updateUser(@PathVariable("id") int id,
+                                                          @RequestBody UserForm updateForm) {
+        User user = userService.updateUser(id, updateForm.getName());
+        return ResponseEntity.ok(Map.of("message", "name successfully updated:" + user.getName()));
     }
 
     @DeleteMapping("/users/{id}")//idの一致するユーザーの削除
