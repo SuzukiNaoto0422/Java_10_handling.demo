@@ -40,7 +40,7 @@ public class UserController {
     public ResponseEntity<Map<String, String>> updateUser(@PathVariable("id") int id,
                                                           @RequestBody UserForm updateForm) {
         User user = userService.updateUser(id, updateForm.getName());
-        return ResponseEntity.ok(Map.of("message", "name successfully updated:" + updateForm.getName()));
+        return ResponseEntity.ok(Map.of("message", "name successfully updated:" + user.getName()));
     }
 
     @DeleteMapping("/users/{id}")//idの一致するユーザーの削除
