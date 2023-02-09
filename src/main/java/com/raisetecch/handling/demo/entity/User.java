@@ -1,4 +1,4 @@
-package com.raisetecch.handling.demo;
+package com.raisetecch.handling.demo.entity;
 
 import jakarta.validation.constraints.NotEmpty;
 
