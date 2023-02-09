@@ -1,5 +1,6 @@
-package com.raisetecch.handling.demo;
+package mapper;
 
+import entity.User;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;

@@ -1,4 +1,4 @@
-package com.raisetecch.handling.demo;
+package exception;
 
 public class ResourceNotFoundException extends  RuntimeException {
 
