@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.ZonedDateTime;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 public class UserController {
