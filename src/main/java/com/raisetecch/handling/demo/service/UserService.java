@@ -30,7 +30,7 @@ public class UserService {
 
         public UserForm entryUser(String name) {
             if (name == null || name.isEmpty() || !name.matches("^[A-Za-z].*")) {//アルファベットで始まらない場合エラーを返す
-                throw new ResourceNotFoundException("Name must not be empty or null or alphabet.");
+                throw new IllegalArgumentException("Name must not be empty or null or alphabet.");
             }
             UserForm form = new UserForm(name);
             userMapper.registrationUserByName(name);

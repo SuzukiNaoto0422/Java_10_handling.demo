@@ -1,5 +1,6 @@
 package com.raisetecch.handling.demo.controller;
 
+import com.raisetecch.handling.demo.exception.IllegalArgumentException;
 import com.raisetecch.handling.demo.exception.ResourceNotFoundException;
 import com.raisetecch.handling.demo.entity.User;
 import com.raisetecch.handling.demo.entity.UserForm;
@@ -64,6 +65,20 @@ public class UserController {
                 "path", request.getRequestURI());
 
         return new ResponseEntity<>(body,HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public ResponseEntity<Map<String,String>> handleIllegalArgument(
+            IllegalArgumentException e, HttpServletRequest request) {
+
+        Map<String, String> body = Map.of(
+                "timestamp", ZonedDateTime.now().toString(),
+                "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
+                "error",HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                "message", e.getMessage(),
+                "path", request.getRequestURI());
+
+        return new ResponseEntity<>(body,HttpStatus.BAD_REQUEST);
     }
 
 }
