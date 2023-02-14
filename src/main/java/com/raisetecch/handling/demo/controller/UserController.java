@@ -36,8 +36,8 @@ public class UserController {
 
     @PostMapping("/users")//dbにユーザーの登録
     public ResponseEntity<String> post(@RequestBody UserForm form) {
-        userService.entryUser(form.getName());
-        return ResponseEntity.ok().body("name successfully created");
+        userService.entryUser(form.getName(), form.getAge());
+        return ResponseEntity.ok().body("user successfully created");
     }
 
     @PatchMapping("/users/{id}")//idに対応するユーザーデータの更新
