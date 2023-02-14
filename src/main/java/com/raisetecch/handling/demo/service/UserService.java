@@ -28,15 +28,15 @@ public class UserService {
             }
         }
 
-        public UserForm entryUser(String name, Integer age) {
+        public UserForm entryUser(String name, int age) {
             if (name == null || name.isEmpty() || !name.matches("^[A-Za-z].*")) {//アルファベットで始まらない場合エラーを返す
                 throw new IllegalArgumentException("Name must not be empty or null or alphabet.");
             }
-            if (age == null || age <= 0) {
-                throw new IllegalArgumentException("Age must not be empty or null or positive.");
+            if (age <= 0) {
+                throw new IllegalArgumentException("Age must not be positive.");
             }
             UserForm form = new UserForm(name, age);
-            userMapper.registrationUserByName(name, age);
+            userMapper.registryUser(name, age);
             return form;
         }
 
