@@ -40,6 +40,12 @@ public class UserController {
         return ResponseEntity.ok().body("user successfully created");
     }
 
+    @DeleteMapping("/users/{id}")//idの一致するユーザーの削除
+    public ResponseEntity<Map<String,String>> delete(@PathVariable("id") Integer id) {
+        User user = userService.deleteUser(id);
+        return ResponseEntity.ok(Map.of("message", "name successfully deleted"));
+    }
+
     @PatchMapping("/users/{id}")//idに対応するユーザーデータの更新
     public ResponseEntity<Map<String, String>> updateUser(@PathVariable("id") int id,
                                                           @RequestBody UserForm updateForm) {
@@ -47,11 +53,6 @@ public class UserController {
         return ResponseEntity.ok(Map.of("message", "name successfully updated:" + user.getName()));
     }
 
-    @DeleteMapping("/users/{id}")//idの一致するユーザーの削除
-    public ResponseEntity<Map<String,String>> delete(@PathVariable("id") Integer id) {
-        User user = userService.deleteUser(id);
-        return ResponseEntity.ok(Map.of("message", "name successfully deleted"));
-    }
 
     @ExceptionHandler(value = ResourceNotFoundException.class)
     public ResponseEntity<Map<String,String>> handleNoResourceFound(
