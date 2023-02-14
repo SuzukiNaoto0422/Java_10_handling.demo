@@ -35,8 +35,8 @@ public class UserController {
     }
 
     @PostMapping("/users")//dbにユーザーの登録
-    public ResponseEntity<String> post(@RequestBody UserForm form) {
-        userService.entryUser(form.getName(), form.getAge());
+    public ResponseEntity<String> post(@RequestBody User user) {
+        userService.entryUser(user.getName(), user.getAge());
         return ResponseEntity.ok().body("user successfully created");
     }
 
