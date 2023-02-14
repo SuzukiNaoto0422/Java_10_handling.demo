@@ -10,6 +10,9 @@ public class User {
         @NotEmpty
         private String name;
 
+        @NotEmpty
+        private int age;
+
         public User() {}
 
         public User(String name) {
@@ -32,4 +35,11 @@ public class User {
         this.name = name;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 }
