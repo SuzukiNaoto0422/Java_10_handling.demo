@@ -15,8 +15,8 @@ public interface UserMapper {
     @Select("SELECT * FROM users WHERE id = #{id}")
     Optional<User> findById(int id);
 
-    @Insert("INSERT INTO users (name) VALUES (#{name})")
-    void registrationUserByName(String name);
+    @Insert("INSERT INTO users (name, age) VALUES (#{name}, #{age})")
+    void registryUser(String name, int age);
 
     @Delete("DELETE FROM users WHERE id = #{id}")
     boolean deleteById(int id);

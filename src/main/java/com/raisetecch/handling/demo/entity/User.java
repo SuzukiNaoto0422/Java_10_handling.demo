@@ -1,6 +1,7 @@
 package com.raisetecch.handling.demo.entity;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class User {
 
@@ -9,6 +10,9 @@ public class User {
 
         @NotEmpty
         private String name;
+
+        @NotNull
+        private Integer age;
 
         public User() {}
 
@@ -32,4 +36,11 @@ public class User {
         this.name = name;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 }
