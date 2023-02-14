@@ -16,7 +16,7 @@ public interface UserMapper {
     Optional<User> findById(int id);
 
     @Insert("INSERT INTO users (name, age) VALUES (#{name}, #{age})")
-    void registrationUserByName(String name, int age);
+    void registryUser(String name, int age);
 
     @Delete("DELETE FROM users WHERE id = #{id}")
     boolean deleteById(int id);
