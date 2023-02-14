@@ -29,15 +29,15 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/users/{id}")//dbの中のユーザーの検索
+    public User getUser(@PathVariable("id") int id) {
+        return userService.findUser(id);
+    }
+
     @PostMapping("/users")//dbにユーザーの登録
     public ResponseEntity<String> post(@RequestBody User user) {
         userService.entryUser(user.getName(), user.getAge());
         return ResponseEntity.ok().body("user successfully created");
-    }
-
-    @GetMapping("/users/{id}")//dbの中のユーザーの検索
-    public User getUser(@PathVariable("id") int id) {
-        return userService.findUser(id);
     }
 
     @PatchMapping("/users/{id}")//idに対応するユーザーデータの更新
