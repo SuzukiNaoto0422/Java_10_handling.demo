@@ -23,7 +23,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: CatsCafe
+      MYSQL_DATABASE: Members
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
