@@ -30,10 +30,10 @@ public class UserService {
 
     public UserForm entryUser(String name, int age) {
         if (name == null || name.isEmpty() || !name.matches("^[A-Za-z].*")) {
-            throw new IllegalArgumentException("Name must not be empty or null or alphabet.");
+            throw new IllegalArgumentException("Name must not be empty or null or alphabet");
         }
         if (age < 0 || age > 100) {
-            throw new IllegalArgumentException("Age must be between 0 and 100.");
+            throw new IllegalArgumentException("Age must be between 0 and 100");
         }
         UserForm form = new UserForm(name, age);
         userMapper.registryUser(name, age);
