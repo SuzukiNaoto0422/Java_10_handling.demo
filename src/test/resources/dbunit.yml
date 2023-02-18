@@ -1,0 +1,9 @@
+cacheConnection: false
+cacheTableNames: false
+properties:
+  schema: Members
+caseInsensitiveStrategy: LOWERCASE
+connectionConfig:
+  url: jdbc:mysql://localhost:3307/Members
+  user: user
+  password: password
