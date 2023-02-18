@@ -24,6 +24,4 @@ public interface UserMapper {
     @Update("UPDATE users SET name = #{name} WHERE id = #{id}")
     void updateNameById(int id, String name);
 
-    @Select("SELECT * FROM users WHERE id = #{id} AND name = #{name}")
-    Optional<User> findByIdAndName(int id, String name);
 }
