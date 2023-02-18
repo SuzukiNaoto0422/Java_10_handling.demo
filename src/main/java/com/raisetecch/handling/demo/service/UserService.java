@@ -52,15 +52,4 @@ public class UserService {
             return userUpdate;
         }
 
-        public User userLogin(Integer id, String name) {
-            if (id == null || name == null || name.isEmpty()) {
-                throw new ResourceNotFoundException("user not found");
-            }
-            Optional<User> user = this.userMapper.findByIdAndName(id, name);
-            if (user.isPresent()) {
-                return user.get();
-            } else {
-                throw new ResourceNotFoundException("user not found");
-            }
-        }
 }
