@@ -30,4 +30,5 @@ DELETE : curl -X DELETE http://localhost:8080/users/{id}
 |カラム名（論理名）|カラム名（物理名）|型・桁|Nullable|その他コメント|
 |---|---|---|---|---|
 |ID|id|int|NO|primary key, auto_increment|
-|名前|name|varchar(20)|NO|
+|名前|name|varchar(20)|NO|  
+|年齢|age|int|NO|
