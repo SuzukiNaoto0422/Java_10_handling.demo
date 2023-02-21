@@ -14,7 +14,6 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,6 +31,6 @@ public class UserServiceTest {
 
         User actual = userService.findUser(1);
         assertThat(actual, equalTo(new User(1, "suzuki", 30)));
-        verify(userMapper, times(1)).findById(1);
+        verify(userMapper).findById(1);
     }
 }
