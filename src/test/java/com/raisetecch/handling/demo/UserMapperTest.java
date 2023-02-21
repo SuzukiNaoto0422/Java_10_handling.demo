@@ -9,10 +9,9 @@ import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.util.Optional;
 
 @DBRider
 @MybatisTest
@@ -25,10 +24,10 @@ public class UserMapperTest {
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
-    void 指定したidでユーザーのすべての要素を取得できているか() {
-        List<User> users = userMapper.findById();
-        assertThat(users)
-                .hazSize(3)
+    void 指定したidでユーザーのすべての要素を取得できていること(int id) {
+        Optional<User> user = userMapper.findById(id);
+        assertThat(user)
+                .hasSize(3)
                 .contains(
                         new User(1, "suzuki", 30),
                         new User(2, "satou", 25),

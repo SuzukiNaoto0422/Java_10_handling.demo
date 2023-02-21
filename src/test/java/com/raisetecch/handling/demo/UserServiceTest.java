@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -26,10 +27,10 @@ public class UserServiceTest {
     UserMapper userMapper;
 
     @Test
-    public void 存在するユーザーのIDを指定されたときに正常にユーザーを返す() throws Exception {
+    public void 存在するユーザーのIDを指定されたときに正常にユーザーを返すこと() throws Exception {
         doReturn(Optional.of(new User(1, "suzuki", 30))).when(userMapper).findById(1);
-        verify(userMapper, times(1)).findById(1);
         User actual = userService.findUser(1);
-        assertThat(actual).isEqualTo(new User(1, "suzuki", 30));
+        verify(userMapper, times(1)).findById(1);
+        assertThat(actual, equalTo(new User(1, "suzuki", 30)));
     }
 }
