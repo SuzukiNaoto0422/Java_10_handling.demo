@@ -1,4 +1,4 @@
-package com.raisetecch.handling.demo;
+package com.raisetecch.handling.demo.service;
 
 import com.raisetecch.handling.demo.entity.User;
 import com.raisetecch.handling.demo.mapper.UserMapper;
