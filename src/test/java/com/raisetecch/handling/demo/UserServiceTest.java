@@ -29,8 +29,9 @@ public class UserServiceTest {
     @Test
     public void 存在するユーザーのIDを指定されたときに正常にユーザーを返すこと() throws Exception {
         doReturn(Optional.of(new User(1, "suzuki", 30))).when(userMapper).findById(1);
+
         User actual = userService.findUser(1);
-        verify(userMapper, times(1)).findById(1);
         assertThat(actual, equalTo(new User(1, "suzuki", 30)));
+        verify(userMapper, times(1)).findById(1);
     }
 }
