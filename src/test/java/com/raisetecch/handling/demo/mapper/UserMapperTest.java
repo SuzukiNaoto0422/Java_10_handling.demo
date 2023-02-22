@@ -16,7 +16,7 @@ import java.util.Optional;
 @DBRider
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class UserMapperTest {
+class UserMapperTest {
 
     @Autowired
     UserMapper userMapper;
