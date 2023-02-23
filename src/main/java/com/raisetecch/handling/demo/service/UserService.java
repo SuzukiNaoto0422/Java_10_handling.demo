@@ -40,10 +40,10 @@ public class UserService {
         return form;
     }
 
-        public User deleteUser(int id) {
+        public boolean deleteUser(int id) {
             User userDelete = userMapper.findById(id).orElseThrow(() -> new ResourceNotFoundException("user not found"));
             userMapper.deleteById(id);
-            return userDelete;
+            return true;
         }
 
         public User updateUser(int id, String name) {
