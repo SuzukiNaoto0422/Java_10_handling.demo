@@ -1,6 +1,7 @@
 package com.raisetecch.handling.demo.service;
 
 import com.raisetecch.handling.demo.entity.User;
+import com.raisetecch.handling.demo.entity.UserForm;
 import com.raisetecch.handling.demo.mapper.UserMapper;
 import com.raisetecch.handling.demo.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
@@ -32,5 +34,14 @@ public class UserServiceTest {
         User actual = userService.findUser(1);
         assertThat(actual, equalTo(new User(1, "suzuki", 30)));
         verify(userMapper).findById(1);
+    }
+
+    @Test
+    public void ユーザーのnameとageが入力された時に正常にユーザーの登録をすること() throws Exception {
+        doNothing().when(userMapper).registryUser("suzuki", 30);
+
+        UserForm actual = userService.entryUser("suzuki", 30);
+        assertThat(actual,equalTo(new UserForm("suzuki", 30)));
+        verify(userMapper).registryUser("suzuki", 30);
     }
 }
