@@ -11,10 +11,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
+
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.never;
@@ -50,7 +53,6 @@ public class UserServiceTest {
 
     @Test
     public void 存在するユーザーのidを指定された時に正常にユーザーを削除すること() throws Exception{
-
         User user = new User();
         user.setId(1);
         when(userMapper.findById(1)).thenReturn(Optional.of(user));
@@ -65,7 +67,6 @@ public class UserServiceTest {
 
     @Test
     public void 存在しないユーザーのidを指定された時にResourceNotFoundExceptionがスローされること() throws Exception {
-
         when(userMapper.findById(2)).thenReturn(Optional.empty());
 
         userService.deleteUser(2);
@@ -74,6 +75,30 @@ public class UserServiceTest {
         verify(userMapper, never()).deleteById(anyInt());
     }
 
+    @Test
+    public void idに対応するユーザーのnameが更新できていること() throws Exception {
+        User user = new User();
+        user.setId(1);
+        user.setName("saitou");
 
+        when(userMapper.findById(1)).thenReturn(Optional.of(user));
+        doNothing().when(userMapper).updateNameById(1,"saitou");
+
+        User actual = userService.updateUser(1, "saitou");
+
+        assertThat(actual,equalTo(new User(1, "saitou")));
+        verify(userMapper).findById(1);
+        verify(userMapper).updateNameById(1, "saitou");
+    }
+
+    @Test
+    public void 存在しないIDの場合にResourceNotFoundExceptionがスローされること() {
+        when(userMapper.findById(777)).thenReturn(Optional.empty());
+
+        userService.updateUser(777, "saitou");
+
+        verify(userMapper).findById(777);
+        verify(userMapper, never()).updateNameById(anyInt(), anyString());
+    }
 
 }
