@@ -1,0 +1,10 @@
+users:
+  - id: 1
+    name: "suzuki"
+    age: 30
+  - id: 2
+    name: "saitou"
+    age: 25
+  - id: 3
+    name: "takahashi"
+    age: 18
