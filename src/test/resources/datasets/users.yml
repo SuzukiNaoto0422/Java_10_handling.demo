@@ -8,3 +8,6 @@ users:
   - id: 3
     name: "takahashi"
     age: 18
+  - id: 4
+    name: "sasaki"
+    age: 25
