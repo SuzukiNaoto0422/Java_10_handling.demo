@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hibernate.validator.internal.util.Contracts.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.Optional;
 
@@ -44,6 +44,19 @@ class UserMapperTest {
         Optional<User> newUser = userMapper.findById(4);
         assertThat(newUser.get()).isEqualTo(new User(4, "sasaki", 25));
     }
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @Transactional
+    void 入力されたidで対象のユーザーの削除ができていること() {
+        String name = "sasaki";
+        int age = 25;
+
+        userMapper.deleteById(4);
+        Optional<User> deletedUser = userMapper.findById(4);
+        assertFalse(deletedUser.isPresent());
+    }
+
 
 
 }
