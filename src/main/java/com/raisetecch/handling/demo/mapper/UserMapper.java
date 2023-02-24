@@ -19,7 +19,7 @@ public interface UserMapper {
     void registryUser(String name, int age);
 
     @Delete("DELETE FROM users WHERE id = #{id}")
-    boolean deleteById(int id);
+    void deleteById(int id);
 
     @Update("UPDATE users SET name = #{name} WHERE id = #{id}")
     void updateNameById(int id, String name);
