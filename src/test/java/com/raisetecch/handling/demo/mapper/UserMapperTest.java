@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
@@ -37,12 +38,13 @@ class UserMapperTest {
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void 入力したnameとageで新規ユーザーの登録ができていること() {
-        String name = "sasaki";
-        int age = 25;
+        String name = "yamauchi";
+        int age = 28;
 
         userMapper.registryUser(name, age);
-        Optional<User> newUser = userMapper.findById(4);
-        assertThat(newUser.get()).isEqualTo(new User(4, "sasaki", 25));
+        Optional<User> newUser = userMapper.findById(5);
+        assertTrue(newUser.isPresent());
+        assertThat(newUser.get()).isEqualTo(new User(5,"yamauchi", 28));
     }
 
     @Test
