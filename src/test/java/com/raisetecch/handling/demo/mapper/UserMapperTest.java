@@ -57,6 +57,16 @@ class UserMapperTest {
         assertFalse(deletedUser.isPresent());
     }
 
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @Transactional
+    void 入力されたidで対象のユーザーの名前の更新ができていること() {
+        String name = "sasaki";
+        int age = 25;
 
+        userMapper.updateNameById(4, "isibashi");
+        Optional<User> updatedUser = userMapper.findById(4);
+        assertThat(updatedUser.get()).isEqualTo(new User(4, "isibashi", 25));
+    }
 
 }
