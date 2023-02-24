@@ -2,7 +2,6 @@ package com.raisetecch.handling.demo.service;
 
 import com.raisetecch.handling.demo.entity.User;
 import com.raisetecch.handling.demo.entity.UserForm;
-import com.raisetecch.handling.demo.exception.ResourceNotFoundException;
 import com.raisetecch.handling.demo.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,8 +11,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -47,7 +44,7 @@ public class UserServiceTest {
         doNothing().when(userMapper).registryUser("suzuki", 30);
 
         UserForm actual = userService.entryUser("suzuki", 30);
-        assertThat(actual,equalTo(new UserForm("suzuki", 30)));
+        assertThat(actual, equalTo(new UserForm("suzuki", 30)));
         verify(userMapper).registryUser("suzuki", 30);
     }
 
@@ -55,12 +52,12 @@ public class UserServiceTest {
     public void 存在するユーザーのidを指定された時に正常にユーザーを削除すること() throws Exception{
         User user = new User();
         user.setId(1);
+
         when(userMapper.findById(1)).thenReturn(Optional.of(user));
-        when(userMapper.deleteById(1)).thenReturn(true);
+        doNothing().when(userMapper).deleteById(1);
 
-        boolean result = userService.deleteUser(1);
+        userService.deleteUser(1);
 
-        assertTrue(result);
         verify(userMapper).findById(1);
         verify(userMapper).deleteById(1);
     }
@@ -86,7 +83,7 @@ public class UserServiceTest {
 
         User actual = userService.updateUser(1, "saitou");
 
-        assertThat(actual,equalTo(new User(1, "saitou")));
+        assertThat(actual, equalTo(new User(1, "saitou")));
         verify(userMapper).findById(1);
         verify(userMapper).updateNameById(1, "saitou");
     }
