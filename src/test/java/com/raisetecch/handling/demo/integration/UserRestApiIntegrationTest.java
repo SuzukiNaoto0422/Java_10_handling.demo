@@ -33,15 +33,14 @@ public class UserRestApiIntegrationTest {
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void 指定したidのユーザーの全要素が取得できること() throws Exception {
-        String response = mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 1))
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 1))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
-
-        JSONAssert.assertEquals(
-                " {" +
-                " \"id\": 1," +
-                " \"name\": \"suzuki\"," +
-                " \"age\": 30" +
-                " }" , response, JSONCompareMode.STRICT);
+                .andExpect(MockMvcResultMatchers.content().json("""
+                          {
+                            "id": 1,
+                            "name": "suzuki",
+                            "age": 30
+                          }
+                        """));
     }
 }
