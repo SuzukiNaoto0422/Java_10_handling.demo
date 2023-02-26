@@ -2,6 +2,8 @@ package com.raisetecch.handling.demo.integration;
 
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.spring.api.DBRider;
+import com.raisetecch.handling.demo.entity.User;
+import com.raisetecch.handling.demo.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -12,6 +14,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @DBRider
@@ -21,18 +25,25 @@ public class UserRestApiIntegrationTest {
     @Autowired
     MockMvc mockMvc;
 
+    @Autowired
+    UserMapper userMapper;
+
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void 指定したidのユーザーの全要素が取得できること() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 1))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("""
-                          {
-                            "id": 1,
-                            "name": "suzuki",
-                            "age": 30
-                          }
-                        """));
+        List<User> users = userMapper.findAllUsers();
+
+        for (User user : users) {
+            mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", user.getId()))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                              {
+                                "id": %d,
+                                "name": "%s",
+                                "age": %d
+                              }
+                            """.formatted(user.getId(), user.getName(), user.getAge())));
+        }
     }
 }
