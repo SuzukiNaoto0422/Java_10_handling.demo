@@ -68,9 +68,9 @@ public class UserRestApiIntegrationTest {
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void 指定したidのユーザーの削除ができること() throws Exception {
-        userMapper.deleteById(1);
+        userMapper.deleteById(2);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 1))
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 2))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
