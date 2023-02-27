@@ -50,6 +50,16 @@ public class UserRestApiIntegrationTest {
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
+    void 指定したidのユーザーの削除ができること() throws Exception {
+        userMapper.deleteById(1);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 1))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @Transactional
     void 指定したidのユーザーのnameが更新できること() throws Exception {
         userMapper.updateNameById(1, "yamamoto");
 
