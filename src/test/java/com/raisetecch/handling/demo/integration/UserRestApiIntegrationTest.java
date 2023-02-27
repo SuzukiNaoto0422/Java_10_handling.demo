@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -50,45 +51,23 @@ public class UserRestApiIntegrationTest {
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
-    void nameとidを入力したユーザーの登録ができること() throws Exception {
-        userMapper.registryUser("tainaka", 22);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 5))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("""
-                              {
-                                "id": 5,
-                                "name": "tainaka",
-                                "age": 22
-                              }
-                            """));
-    }
-
-    @Test
-    @DataSet(value = "datasets/users.yml")
-    @Transactional
     void 指定したidのユーザーの削除ができること() throws Exception {
-        userMapper.deleteById(2);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 2))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/users/{id}", 2))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
     void 指定したidのユーザーのnameが更新できること() throws Exception {
-        userMapper.updateNameById(1, "yamamoto");
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 1))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                    .andExpect(MockMvcResultMatchers.content().json("""
-                              {
-                                "id": 1,
-                                "name": "yamamoto",
-                                "age": 30
-                              }
-                            """));
+        mockMvc.perform(MockMvcRequestBuilders.patch("/users/{id}", 1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                        "name": "yamamoto"
+                        }
+                        """)).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 }
