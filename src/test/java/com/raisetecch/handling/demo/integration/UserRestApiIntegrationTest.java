@@ -46,4 +46,22 @@ public class UserRestApiIntegrationTest {
                             """.formatted(user.getId(), user.getName(), user.getAge())));
         }
     }
+
+    @Test
+    @DataSet(value = "datasets/users.yml")
+    @Transactional
+    void 指定したidのユーザーのnameが更新できること() throws Exception {
+        userMapper.updateNameById(1, "yamamoto");
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 1))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                              {
+                                "id": 1,
+                                "name": "yamamoto",
+                                "age": 30
+                              }
+                            """));
+    }
+
 }
