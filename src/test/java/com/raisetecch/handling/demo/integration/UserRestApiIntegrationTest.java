@@ -59,12 +59,21 @@ public class UserRestApiIntegrationTest {
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
-    void 指定したidのユーザーが取得できないこと() throws Exception {
+    void 存在しないidのユーザーを取得しようとしたこと() throws Exception {
         /*
         ステータスコード: 404 Not Found
+        レスポンスボディ:
+            {
+                "message": ユーザーが見つからない場合のメッセージ
+            }
         */
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 6))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 6)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                        "message": "user not found"
+                        }
+                        """)).andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
     @Test
@@ -117,14 +126,14 @@ public class UserRestApiIntegrationTest {
         ステータスコード: 404 Not Found
         レスポンスボディ:
             {
-                "name": 変更後のユーザーの名前,
+                "message": ユーザーが見つからない場合のメッセージ
             }
          */
         mockMvc.perform(MockMvcRequestBuilders.patch("/users/{id}", 6)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
-                        "name": "yamamoto"
+                        "message": "user not found"
                         }
                         """)).andExpect(MockMvcResultMatchers.status().isNotFound());
     }
