@@ -67,13 +67,13 @@ public class UserRestApiIntegrationTest {
                 "message": ユーザーが見つからない場合のメッセージ
             }
         */
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 6)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 6))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().json("""
                         {
-                        "message": "user not found"
+                        "message": "resource not found"
                         }
-                        """)).andExpect(MockMvcResultMatchers.status().isNotFound());
+                        """));
     }
 
     @Test
@@ -98,13 +98,13 @@ public class UserRestApiIntegrationTest {
                 "message": ユーザーが見つからない場合のメッセージ
             }
          */
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 6)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
+        mockMvc.perform(MockMvcRequestBuilders.delete("/users/{id}", 6))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().json("""
                         {
                         "message": "user not found"
                         }
-                        """)).andExpect(MockMvcResultMatchers.status().isNotFound());
+                        """));
     }
 
     @Test
