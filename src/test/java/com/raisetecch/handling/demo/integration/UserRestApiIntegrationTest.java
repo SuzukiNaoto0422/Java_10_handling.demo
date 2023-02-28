@@ -95,7 +95,12 @@ public class UserRestApiIntegrationTest {
             ステータスコード: 404 Not Found
             */
         mockMvc.perform(MockMvcRequestBuilders.delete("/users/{id}", 6))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        {
+                        "message": "user not found"
+                        }
+                        """));
     }
 
     @Test
