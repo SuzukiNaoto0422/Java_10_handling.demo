@@ -59,7 +59,7 @@ public class UserRestApiIntegrationTest {
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
-    void 存在しないidのユーザーを取得しようとしたこと() throws Exception {
+    void 存在しないユーザーを取得しようとしたこと() throws Exception {
         /*
         ステータスコード: 404 Not Found
         レスポンスボディ:
@@ -90,17 +90,21 @@ public class UserRestApiIntegrationTest {
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
-    void 存在しないidのユーザーの削除を実行したこと() throws Exception {
-            /*
-            ステータスコード: 404 Not Found
-            */
-        mockMvc.perform(MockMvcRequestBuilders.delete("/users/{id}", 6))
-                .andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andExpect(MockMvcResultMatchers.content().json("""
+    void 存在しないユーザーを削除しようとしたこと() throws Exception {
+        /*
+        ステータスコード: 404 Not Found
+        レスポンスボディ:
+            {
+                "message": ユーザーが見つからない場合のメッセージ
+            }
+         */
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 6)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
                         {
                         "message": "user not found"
                         }
-                        """));
+                        """)).andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
     @Test
@@ -126,7 +130,7 @@ public class UserRestApiIntegrationTest {
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
-    void 存在しないユーザーのnameが更新を実行したこと() throws Exception {
+    void 存在しないユーザーのnameを更新しようとしたこと() throws Exception {
         /*
         ステータスコード: 404 Not Found
         レスポンスボディ:
