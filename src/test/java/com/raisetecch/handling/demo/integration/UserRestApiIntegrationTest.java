@@ -59,7 +59,7 @@ public class UserRestApiIntegrationTest {
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
-    void 存在しないユーザーを取得しようとしたこと() throws Exception {
+    void  存在しないIDを指定すると404のステータスコードとエラーのレスポンスを返すこと() throws Exception {
         /*
         ステータスコード: 404 Not Found
         レスポンスボディ:
@@ -90,7 +90,7 @@ public class UserRestApiIntegrationTest {
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
-    void 存在しないユーザーを削除しようとしたこと() throws Exception {
+    void 存在しないIDのユーザーを削除しようとすると404のステータスとエラーレスポンスを返すこと() throws Exception {
         /*
         ステータスコード: 404 Not Found
         レスポンスボディ:
@@ -130,7 +130,7 @@ public class UserRestApiIntegrationTest {
     @Test
     @DataSet(value = "datasets/users.yml")
     @Transactional
-    void 存在しないユーザーのnameを更新しようとしたこと() throws Exception {
+    void 存在しないIDのユーザーを更新しようとすると404のステータスとエラーレスポンスを返すこと() throws Exception {
         /*
         ステータスコード: 404 Not Found
         レスポンスボディ:
