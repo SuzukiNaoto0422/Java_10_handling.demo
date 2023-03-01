@@ -31,8 +31,4 @@ jobs:
       - name: Set up MySQL environment variables
         env:
         MYSQL_DATABASE: Members
-        MYSQL_USER: user
-        MYSQL_PASSWORD: password
-
-      - name: Connect to MySQL database
         run: mysql -h $MYSQL_HOST -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE
