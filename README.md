@@ -18,7 +18,7 @@ docker compose down
 ```  
 GET : curl -X GET http://localhost:8080/users/{id}  
 
-POST : curl -X POST -H "Content-Type: application/json" -d '{"name":"{name}, "age":{age}"}' http://localhost:8080/users  
+POST : curl -X POST -H "Content-Type: application/json" -d '{"name":"{name}", "age":{age}}' http://localhost:8080/users  
 
 PATCH : curl -X PATCH -H "Content-Type: application/json" -d '{"name":"{更新後のname}"}' http://localhost:8080/users/{id}  
 
